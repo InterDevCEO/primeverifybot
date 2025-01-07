@@ -4,70 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificación Bot Discord</title>
+    <!-- Añadimos fuente moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: #36393f; /* Color similar a Discord */
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .container {
-            background-color: #2f3136;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background: rgba(47, 49, 54, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             text-align: center;
             color: #ffffff;
-            max-width: 400px;
+            max-width: 450px;
             width: 90%;
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.47);
         }
 
         .bot-icon {
-            width: 128px;
-            height: 128px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            border: 4px solid #5865f2;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
         }
 
         h1 {
             margin-bottom: 1rem;
             color: #ffffff;
+            font-size: 2.2em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         p {
             color: #dcddde;
             margin-bottom: 1.5rem;
-            line-height: 1.5;
-        }
-
-        .verify-button {
-            background-color: #5865f2; /* Color azul de Discord */
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .verify-button:hover {
-            background-color: #4752c4;
+            line-height: 1.6;
+            font-size: 1.1em;
         }
 
         .steps {
             text-align: left;
             margin: 1.5rem 0;
-            padding: 1rem;
-            background-color: #40444b;
-            border-radius: 4px;
+            padding: 1.5rem;
+            background: rgba(64, 68, 75, 0.6);
+            border-radius: 15px;
+            border-left: 4px solid #5865f2;
+            transition: all 0.3s ease;
+        }
+
+        .steps:hover {
+            transform: scale(1.02);
+            background: rgba(64, 68, 75, 0.8);
         }
 
         .steps ol {
@@ -76,32 +113,139 @@
         }
 
         .steps li {
-            margin: 0.5rem 0;
+            margin: 0.8rem 0;
             color: #dcddde;
+            font-size: 1.1em;
+        }
+
+        .verify-button {
+            background: linear-gradient(45deg, #5865f2, #7289da);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .verify-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.4);
+        }
+
+        .verify-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #5865f2, #7289da);
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+
+        .verify-button:hover::after {
+            opacity: 0.2;
+        }
+
+        /* Añadimos partículas flotantes */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: particleFloat 20s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Partículas de fondo -->
+    <div class="particles">
+        <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 20%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 30%; animation-delay: 4s;"></div>
+        <div class="particle" style="left: 40%; animation-delay: 6s;"></div>
+        <div class="particle" style="left: 50%; animation-delay: 8s;"></div>
+        <div class="particle" style="left: 60%; animation-delay: 10s;"></div>
+        <div class="particle" style="left: 70%; animation-delay: 12s;"></div>
+        <div class="particle" style="left: 80%; animation-delay: 14s;"></div>
+    </div>
+
     <div class="container">
         <!-- Reemplaza "URL_DE_TU_ICONO" con la URL real de tu ícono de bot -->
-        <img src="https://cdn.discordapp.com/attachments/1270517396968570933/1275349173335621665/Sin_titulo_1.jpg?ex=677d7a39&is=677c28b9&hm=228623eaaec62c2a355006e676d5cc9d9b515e5ca1d4d10b384f9a3cb0a80384&" alt="Bot Icon" class="bot-icon">
+        <img src="https://cdn.discordapp.com/attachments/1270517396968570933/1286510453178109972/Nuevo_proyecto_DD480BD.gif?ex=677ddf3a&is=677c8dba&hm=34c179f0a68764f0c55c8c707471de672923082a4d92251a86c73c8dbe914634&" alt="Bot Icon" class="bot-icon">
         <h1>Verificación de [PrimeCR]</h1>
-        <p>Para continuar con la verificación y añadir el bot a tu servidor, por favor sigue los siguientes pasos:</p>
+        <p>¡Estás a punto de añadir un bot increíble a tu servidor! Sigue estos simples pasos para comenzar la aventura.</p>
         
         <div class="steps">
             <ol>
-                <li>Haz clic en el botón "Verificar"</li>
-                <li>Inicia sesión con tu cuenta de Discord</li>
-                <li>Selecciona el servidor donde quieres añadir el bot</li>
-                <li>Confirma los permisos necesarios</li>
+                <li>👉 Haz clic en el botón "Verificar"</li>
+                <li>🔐 Inicia sesión con tu cuenta de Discord</li>
+                <li>🌟 Selecciona el servidor donde quieres añadir el bot</li>
+                <li>✅ Confirma los permisos necesarios</li>
             </ol>
         </div>
 
         <!-- Reemplaza "TU_CLIENT_ID" con el ID de cliente de tu aplicación de Discord -->
         <a href="https://discord.com/api/oauth2/authorize?client_id=1325262550597894205&permissions=8&scope=bot%20applications.commands" 
            class="verify-button" target="_blank">
-            Verificar
+            Verificar Ahora
         </a>
     </div>
+
+    <script>
+        // Añadir más partículas dinámicamente
+        function createParticle() {
+            const particles = document.querySelector('.particles');
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particles.appendChild(particle);
+            
+            // Eliminar la partícula después de la animación
+            setTimeout(() => {
+                particle.remove();
+            }, 20000);
+        }
+
+        // Crear partículas cada cierto tiempo
+        setInterval(createParticle, 2000);
+    </script>
 </body>
 </html>
