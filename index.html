@@ -12,6 +12,54 @@
     <meta property="og:url" content="https://primeecrr.github.io/primeverifybot/">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- ========================================
+         CONFIGURACIÓN DEL BOT - CAMBIA AQUÍ
+    ========================================= -->
+    <script>
+        // CONFIGURACIÓN PRINCIPAL - MODIFICA ESTOS VALORES
+        const BOT_CONFIG = {
+            // INFORMACIÓN DEL BOT
+            name: "Trophelix",
+            tagline: "Professional Discord Bot with Advanced Moderation, Ticket System, and Welcome Features",
+            clientId: "1326781316586536990",
+            
+            // IMÁGENES DEL BOT - EJEMPLOS DE RUTAS:
+            // ✅ Ruta relativa: "images/palmer.png" (desde la carpeta actual)
+            // ✅ Ruta absoluta: "/DiscordBot/palmer.png" (desde la raíz del servidor)
+            // ✅ Ruta local: "./palmer.png" (mismo directorio que el HTML)
+            // ✅ URL externa: "https://ejemplo.com/imagen.png"
+            avatar: {
+                main: "palmer.png",                    // ← CAMBIA AQUÍ tu imagen principal
+                fallback: "images/palmer-backup.png",  // ← CAMBIA AQUÍ tu imagen de respaldo
+                default: "https://cdn.discordapp.com/embed/avatars/0.png"
+            },
+            
+            // ESTADÍSTICAS (cambia estos números)
+            stats: {
+                servers: "500+",
+                users: "50K+",
+                commands: "40+",
+                uptime: "99.9%"
+            },
+            
+            // ENLACES
+            links: {
+                invite: "https://discord.com/api/oauth2/authorize?client_id=1326781316586536990&permissions=8&scope=bot%20applications.commands",
+                support: "https://discord.gg/your-server"
+            },
+            
+            // COLORES (opcional - cambia si quieres)
+            colors: {
+                primary: "#83072D",
+                primaryDark: "#420516",
+                primaryLight: "#a30938",
+                secondary: "#2D0111",
+                accent: "#ff6b9d"
+            }
+        };
+    </script>
+    
     <style>
         :root {
             --primary: #83072D;
@@ -551,13 +599,13 @@
     <!-- Header -->
     <header class="header">
         <div class="logo">
-            <img src="https://cdn.discordapp.com/avatars/1326781316586536990/a_951a688cd05bf774b1826e1a7e1b4514.gif?size=1024" alt="Trophelix">
-            <span>Trophelix</span>
+            <img src="" alt="Bot Logo" id="header-logo">
+            <span id="header-name"></span>
         </div>
         <nav class="nav-links">
             <a href="#features">Features</a>
             <a href="#stats">Stats</a>
-            <a href="https://discord.gg/your-server" target="_blank">Support</a>
+            <a href="" target="_blank" id="support-link">Support</a>
         </nav>
     </header>
 
@@ -566,31 +614,31 @@
         <section class="hero-section">
             <div class="bot-card">
                 <!-- Bot Avatar -->
-                <img src="https://cdn.discordapp.com/avatars/1326781316586536990/a_951a688cd05bf774b1826e1a7e1b4514.gif?size=1024" 
-                     alt="Trophelix Bot" 
+                <img src="" 
+                     alt="Bot Avatar" 
                      class="bot-avatar"
-                     onerror="this.onerror=null; this.src='https://cdn.discordapp.com/avatars/1326781316586536990/9a43a50ae1149e413bdca186b49f8d7e.webp?size=256'; this.onerror=function(){this.src='https://cdn.discordapp.com/embed/avatars/0.png';}">
+                     id="bot-avatar">
                 
                 <!-- Bot Info -->
-                <h1 class="bot-name">Trophelix</h1>
-                <p class="bot-tagline">Professional Discord Bot with Advanced Moderation, Ticket System, and Welcome Features</p>
+                <h1 class="bot-name" id="bot-name"></h1>
+                <p class="bot-tagline" id="bot-tagline"></p>
 
                 <!-- Stats -->
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <span class="stat-number" id="servers">500+</span>
+                        <span class="stat-number" id="stat-servers"></span>
                         <span class="stat-label">Servers</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" id="users">50K+</span>
+                        <span class="stat-number" id="stat-users"></span>
                         <span class="stat-label">Users</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" id="commands">40+</span>
+                        <span class="stat-number" id="stat-commands"></span>
                         <span class="stat-label">Commands</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number" id="uptime">99.9%</span>
+                        <span class="stat-number" id="stat-uptime"></span>
                         <span class="stat-label">Uptime</span>
                     </div>
                 </div>
@@ -641,7 +689,7 @@
                 <!-- Verification Section -->
                 <div class="verify-section">
                     <div class="verify-steps">
-                        <h3>How to Add Trophelix</h3>
+                        <h3>How to Add <span id="bot-name-steps"></span></h3>
                         <div class="steps-list">
                             <div class="step-item">
                                 <div class="step-number">1</div>
@@ -666,9 +714,10 @@
                         </div>
                     </div>
 
-                    <a href="https://discord.com/api/oauth2/authorize?client_id=1326781316586536990&permissions=8&scope=bot%20applications.commands" 
+                    <a href="" 
                        class="verify-button" 
                        target="_blank"
+                       id="invite-button"
                        onclick="showLoading()">
                         <i class="fab fa-discord"></i>
                         Add to Discord
@@ -680,11 +729,54 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 Trophelix Bot. Made with ❤️ for the Discord community.</p>
-        <p>Need help? Join our <a href="https://discord.gg/your-server" target="_blank">Support Server</a></p>
+        <p>&copy; 2024 <span id="footer-name"></span> Bot. Made with ❤️ for the Discord community.</p>
+        <p>Need help? Join our <a href="" target="_blank" id="footer-support">Support Server</a></p>
     </footer>
 
     <script>
+        // Aplicar configuración al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aplicar configuración a todos los elementos
+            document.getElementById('header-logo').src = BOT_CONFIG.avatar.main;
+            document.getElementById('header-name').textContent = BOT_CONFIG.name;
+            document.getElementById('support-link').href = BOT_CONFIG.links.support;
+            
+            document.getElementById('bot-avatar').src = BOT_CONFIG.avatar.main;
+            document.getElementById('bot-name').textContent = BOT_CONFIG.name;
+            document.getElementById('bot-tagline').textContent = BOT_CONFIG.tagline;
+            document.getElementById('bot-name-steps').textContent = BOT_CONFIG.name;
+            
+            document.getElementById('stat-servers').textContent = BOT_CONFIG.stats.servers;
+            document.getElementById('stat-users').textContent = BOT_CONFIG.stats.users;
+            document.getElementById('stat-commands').textContent = BOT_CONFIG.stats.commands;
+            document.getElementById('stat-uptime').textContent = BOT_CONFIG.stats.uptime;
+            
+            document.getElementById('invite-button').href = BOT_CONFIG.links.invite;
+            
+            document.getElementById('footer-name').textContent = BOT_CONFIG.name;
+            document.getElementById('footer-support').href = BOT_CONFIG.links.support;
+            
+            // Configurar fallback de imagen
+            const botAvatar = document.getElementById('bot-avatar');
+            const headerLogo = document.getElementById('header-logo');
+            
+            botAvatar.onerror = function() {
+                this.onerror = null;
+                this.src = BOT_CONFIG.avatar.fallback;
+                this.onerror = function() {
+                    this.src = BOT_CONFIG.avatar.default;
+                };
+            };
+            
+            headerLogo.onerror = function() {
+                this.onerror = null;
+                this.src = BOT_CONFIG.avatar.fallback;
+                this.onerror = function() {
+                    this.src = BOT_CONFIG.avatar.default;
+                };
+            };
+        });
+
         // Particle system
         function createParticle() {
             const particles = document.getElementById('particles');
